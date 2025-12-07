@@ -1,0 +1,34 @@
+[
+  {
+    "id": 2,
+    "nombre": "Pepe",
+    "categoria": "Audio",
+    "precio": 123,
+    "stock": 1,
+    "descripcion": "Auriculares inalámbricos con cancelación activa de ruido."
+  },
+  {
+    "id": 3,
+    "nombre": "Cafetera Nespresso Essenza Mini",
+    "categoria": "Electrodomésticos",
+    "precio": 120,
+    "stock": 8,
+    "descripcion": "Cafetera compacta con sistema de cápsulas."
+  },
+  {
+    "id": 4,
+    "nombre": "Silla Gamer Redragon Saturn",
+    "categoria": "Muebles",
+    "precio": 210,
+    "stock": 15,
+    "descripcion": "Silla ergonómica reclinable con apoyabrazos 3D."
+  },
+  {
+    "id": 5,
+    "nombre": "Silla Gamer 2 Redragon Saturn",
+    "categoria": "Muebles",
+    "precio": 1000000000,
+    "stock": 15,
+    "descripcion": "Silla ergonómica reclinable con apoyabrazos 3D."
+  }
+]
