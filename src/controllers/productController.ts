@@ -4,6 +4,7 @@
 import { Request, Response } from "express"
 import Product from "../model/ProductModel"
 import { Types } from "mongoose"
+import { createProductSchema, updatedProductSchema } from "../validators/productValidators"
 
 class ProductController {
   static getAllProducts = async (req: Request, res: Response): Promise<void | Response> => {
@@ -47,13 +48,19 @@ class ProductController {
         return res.status(400).json({ message: "Datos invalidos" })
       }
 
-      const newProducto = new Product({ name, description, price, category, stock })
+      const validator = createProductSchema.safeParse(body)
 
-      await newProducto.save()
-      res.status(201).json(newProducto)
+      if (!validator.success) {
+        return res.status(400).json({ success: false, errror: validator.error.flatten().fieldErrors })
+      }
+
+      const newProduct = new Product({ name, description, price, category, stock })
+
+      await newProduct.save()
+      res.status(201).json({ succes: true, data: newProduct })
     } catch (e) {
       const error = e as Error
-      res.status(500).json({ error: error.message })
+      res.status(500).json({ success: false, error: error.message })
     }
   }
 
@@ -66,11 +73,13 @@ class ProductController {
         return res.status(400).json({ success: false, error: "ID invalido" })
       }
 
-      const { name, description, price, category, stock } = body
+      const validator = updatedProductSchema.safeParse(body)
 
-      const updates = { name, description, price, category, stock }
+      if (!validator.success) {
+        return res.status(400).json({ success: false, errror: validator.error.flatten().fieldErrors })
+      }
 
-      const updatedProduct = await Product.findByIdAndUpdate(id, updates, { new: true })
+      const updatedProduct = await Product.findByIdAndUpdate(id, validator.data, { new: true })
 
       if (!updatedProduct) {
         return res.status(404).json({ success: false, error: "Producto no encontrado" })
