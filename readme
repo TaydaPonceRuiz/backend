@@ -1,0 +1,95 @@
+API REST – Node.js & Express
+
+--------------------------------------
+
+Esta es una API REST desarrollada con Node.js y Express, que incluye autenticación de usuarios, manejo de productos y middlewares de seguridad.
+
+Tecnologías utilizadas:
+Node.js
+Express
+TypeScript
+CORS
+Rate Limit (limiter)
+JWT (autenticación)
+
+Bruno
+
+--------------------------------------
+
+Antes de emoezar a utilizar el proyecto hay que asegurarse de tener las dependencias intaladas:
+NPM INSTALL
+
+despues hay que configurar las variables, en el archivo:
+.env.example
+
+y al final ejecuatar el servidor:
+NPM RUN DEV
+
+--------------------------------------
+
+Endpoint de verificación de la API.
+Sirve para comprobar que el servidor está funcionando correctamente.
+
+Ruta base de autenticación:
+app.use("/auth", limiter, authRouter)
+
+Todas las rutas que comienzan con /auth pasan por un limiter, el cual limita la cantidad de intentos (por ejemplo, 5 intentos en 15 minutos) para mayor seguridad.
+
+--------------------------------------
+
+Registrar usuario
+POST /auth/register
+
+Descripción
+Permite registrar un nuevo usuario en el sistema, un ejemplo seria.
+
+{
+  "email": "usuario@email.com",
+  "password": "123456"
+}
+
+Login de usuario
+POST /auth/login
+
+Descripción
+Autentica al usuario y genera un token JWT, un ejemplo seria.
+
+{
+  "email": "usuario@email.com",
+  "password": "123456"
+}
+
+y su respuesta podria ser:
+
+{
+  "token": "jwt_token_aqui"
+}
+
+------------------------------------
+
+Productos (/products)
+
+Ruta base de productos:
+app.use("/products", productRouter)
+
+
+En esta ruta maneja todas las operaciones relacionadas con productos.
+
+las operaciones comunes serian:
+GET /products -> Obtener todos los productos
+GET /products/:id -> Obtener un producto por ID
+POST /products -> Crear un producto
+PUT /products/:id -> Actualizar un producto
+DELETE /products/:id -> Eliminar un producto
+
+Estas rutas pueden protegerse utilizando un authMiddleware si se requiere autenticación.
+
+-------------------------------------
+
+Manejo de errores 404
+
+Si el cliente intenta acceder a una ruta que no existe, la API respondera con un:
+{
+  "success": false,
+  "error": "El recurso no se encuentra"
+}
