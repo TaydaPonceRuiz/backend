@@ -93,3 +93,82 @@ Si el cliente intenta acceder a una ruta que no existe, la API respondera con un
   "success": false,
   "error": "El recurso no se encuentra"
 }
+
+-------------------------------------
+
+Para utilizar nuetra api se necesita Bruno, donde una vez intalado y abierto
+deberiamos estar en la pantalla inicial para luego hacer clic en “New Collection”. Despues crear una colección, hay que añadirle un nombre:
+
+producto_API
+
+Luego hay que seleccionar una carpeta en nuestra computadora para al final hacer clic en Create.
+
+una vez echo eso hay que crear una peticion(endpoint) donde van a aparecer los productos,hay que hacer clic derecho sobre la colección:
+
+productos_API
+
+Seleccionar New Request y completar:
+
+Type: HTTP
+
+Request name: get products
+
+URL y method:
+
+GET
+http://localhost:3000/products
+
+
+
+
+
+Type: HTTP
+
+Request name: Login
+
+URL y method:
+
+POST
+http://localhost:3000/auth/register
+http://localhost:3000/auth/login
+
+Una vez ya hecho estas 2 colecciones hay que configurar el Body (si es POST). Ir a la pestaña Body y seleccionar JSON, luego escribir exactamente(el email y contraseña que usted quiera):
+{
+  "email": "usuario@mail.com",
+  "password": "123456"
+}
+
+Una vez echa, hay que enviar la petición presionando el botón Send o -> . Si todo está todo correcto, la API devolverá algo como:
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+
+una vez que le devuelva el token, hay que guardar el token (MUY IMPORTANTE), copiar el valor del token e ir a la parte izquierda y crear una nueva peticion:
+
+crear una petición protegida, clic derecho → New Request
+
+Type: HTTP
+
+Request name: Login
+
+URL y method:
+
+POST
+http://localhost:3000/products/
+
+una vez echa la peticion hay que configurar la autenticación. Ir a la pestaña Auth, seleccionar Tipo: Bearer Token, poner el token que guardamos:
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+Ejecutar la petición protegida
+
+Presionar Send
+
+Resultado esperado:
+
+[
+  {
+    "id": 1,
+    "nombre": "Juan Pérez"
+  }
+]

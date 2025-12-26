@@ -7,6 +7,7 @@ import limiter from "./middleware/rateLimitMiddleware"
 import morgan from "morgan"
 import IUserTokenPayload from "./interfaces/IUserTokenPayload"
 import dotenv from "dotenv"
+import authMiddleware from "./middleware/authMiddleware"
 dotenv.config()
 
 declare global {
@@ -31,7 +32,7 @@ app.get("/", (__: Request, res: Response) => {
   res.json({ status: true })
 })
 // Ruta base de auteticacion -> es donde le vamos a limitar y vamos a proteger la pagina cada vez que se logue una persona, todas las rutas que comienzan con "/auth" pasan primero por el limiter, donde le vamos a limitar a la persona para loguearse con 15 minutos y 5 intentos, y luego pasa por authRouter.
-app.use("/auth", limiter, authRouter)
+app.use("/auth", authMiddleware, limiter, authRouter)
 // Ruta base de los productos -> aca se maneja las peticiones relacionadas a traves del productRouter, como por ejemplo GET, POST, PUT, DELETE, etc.
 app.use("/products", productRouter)
 
