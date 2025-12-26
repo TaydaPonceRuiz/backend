@@ -1,8 +1,3 @@
-// DEFINE EL ESQUEMA DE DATOS Y CREA EL MODELO
-// EL MODELO:
-// 1 - crea la coleccio en mongodb
-// 2 - habilita los metodos de manipulacion de data
-
 import { model, Model, Schema } from "mongoose"
 import IProduct from "../interfaces/IProduct"
 

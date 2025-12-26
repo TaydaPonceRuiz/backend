@@ -1,6 +1,3 @@
-// FUNCIONES QUE SANITIZAN DATOS DE ENTRADA Y RESPONDEN AL CLIENTE
-// LA REQUEST Y EL RESPONSE SIEMPRE ESTARAN EN LOS CONTROLLERS
-
 import { Request, Response } from "express"
 import Product from "../model/ProductModel"
 import { Types } from "mongoose"
@@ -18,9 +15,7 @@ class ProductController {
       if (category) filter.category = new RegExp(String(category), "i")
       if (minPrice || maxPrice) {
         filter.price = {}
-        // maxPrice -> si tengo un precio maximo quiero un objeto con un precio menor
         if (minPrice) filter.price.$gte = minPrice
-        // minPrice -> si tengo un precio minimo quiero un objeto con precio mas grande
         if (maxPrice) filter.price.$lte = maxPrice
       }
 
